@@ -6,14 +6,15 @@ def home(request):
     import requests
     import json
     header = {
-        "Authorization": "Token 4605bc6fa1bc107993ea297fd0d32ef670398ed3"
+        "Authorization": "Token 0d0f1372fdc030d7a53902ccd59552196cc9f462"
     }
     
 
 
-    kobo = requests.get('https://kobo.humanitarianresponse.info/api/v2/assets/azpMY3AfSzcU97PNQV9eb8.json',headers=header)
+    kobo = requests.get('https://kc.humanitarianresponse.info/api/v1/data/1180169.json',headers=header)
     api = json.loads(kobo.content)
     context = {
         'api' : api
     }
+    print(api)
     return render(request, 'home.html', context)
