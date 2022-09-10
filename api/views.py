@@ -11,7 +11,7 @@ def home(request):
     
 
 
-    kobo = requests.get('https://kc.humanitarianresponse.info/api/v1/data/1180169.json',headers=header)
+    kobo = requests.get('https://kobo.humanitarianresponse.info/api/v2/assets/aNFCLuoysyPsCTQ8H6kB2V.json',headers=header)
     api = json.loads(kobo.content)
 
     
