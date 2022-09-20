@@ -3,7 +3,7 @@
 ### This is just a testing on the Kobotoolbox Api. 
 ### This repository shows how to fetch kobotoolbox Api using Django.
 
-### Click on this link to read the article https://seunogunmolufirst1.medium.com/advanced-data-collection-how-to-fetch-kobotoolbox-api-to-web-interface-using-django-dec2a761869c
+https://seunogunmolufirst1.medium.com/advanced-data-collection-how-to-fetch-kobotoolbox-api-to-web-interface-using-django-dec2a761869c
 
 [![Watch the video](https://user-images.githubusercontent.com/58033364/191360425-a8f53736-4c3a-4bf3-a65f-069be6c43e5d.png)](https://www.youtube.com/watch?v=VLKepsHLCgM&t=6s)
 
