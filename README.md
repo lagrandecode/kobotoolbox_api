@@ -5,6 +5,8 @@
 
 https://seunogunmolufirst1.medium.com/advanced-data-collection-how-to-fetch-kobotoolbox-api-to-web-interface-using-django-dec2a761869c
 
+
+### Click on the link below to watch the video
 [![Watch the video](https://user-images.githubusercontent.com/58033364/191360425-a8f53736-4c3a-4bf3-a65f-069be6c43e5d.png)](https://www.youtube.com/watch?v=VLKepsHLCgM&t=6s)
 
 
