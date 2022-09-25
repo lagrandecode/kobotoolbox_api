@@ -16,10 +16,13 @@
    <h1>{{api.name}}</h1>
    <h1>{{api.deployment__submission_count}}</h1>
    <h1>{{api.results.1.Name}}</h1>
+   <h1>{{api.data_url_xlsx}}</h1>
+   <a href="{{api.data_url_xlsx}}">Download</a>
 
    {% for x in api %}
 
    <h1>{{x.Name}}</h1>
+
 
    {% endfor %}
 

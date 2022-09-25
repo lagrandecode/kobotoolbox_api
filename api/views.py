@@ -21,7 +21,7 @@ def home(request):
     # In my case https://kc.humanitarianresponse.info/api/v1/data/1184899
     # So, I can changed the url to access the actual information like name, gender, or what was designed.
 
-    response = requests.get('https://kobo.humanitarianresponse.info/api/v2/assets/aSq6uc8mEAVAPLn7YjFB4X/data.json',
+    response = requests.get('https://kobo.humanitarianresponse.info/api/v2/assets/aSq6uc8mEAVAPLn7YjFB4X/export-settings/esN8sabLW2cjjRidZruvin8.json',
     headers=header,auth=("kobotutor101","08078011943"))
     print(response.text)
 
