@@ -11,9 +11,10 @@
    <h3>HOW TO FETCH KOBOTOOLBOX API USING DJANGO</h3>
 
 
-
+   <h1>{{api.content}}</h1>
 
    <h1>{{api.name}}</h1>
+   
    <h1>{{api.deployment__submission_count}}</h1>
    <h1>{{api.results.1.Name}}</h1>
    <h1>{{api.data_url_xlsx}}</h1>
@@ -21,7 +22,8 @@
 
    {% for x in api %}
 
-   <h1>{{x.Name}}</h1>
+   <h1>{{x.name}}</h1>
+   <h1>{{x.age}}</h1>
 
 
    {% endfor %}
