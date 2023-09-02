@@ -1,11 +1,12 @@
 from multiprocessing import context
 from re import sub
 from urllib import response
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 import io
 import uuid
 from datetime import datetime
-
+from .models import *
+from .forms import *
 # Create your views here.
 
 
@@ -88,7 +89,7 @@ import io
 import requests
 import uuid
 from datetime import datetime
-from django.http import HttpResponse
+
 
 BASE_URL = 'https://kc.kobotoolbox.org'
 SUMISSION_URL = f'{BASE_URL}/api/v1/submissions'
@@ -116,13 +117,32 @@ def create_xml_submission(data, _uuid):
 
 def home(request):
     _uuid = str(uuid.uuid4())
-    data = 'great'  # Change this to the data you want to submit
+    data = 'after test' # Change this to the data you want to submit
     file_tuple = (_uuid, io.BytesIO(create_xml_submission(data, _uuid)))
     files = {'xml_submission_file': file_tuple}
     headers = {'Authorization': f'Token {TOKEN}'}
     res = requests.post(SUMISSION_URL, files=files, headers=headers)
+    message = 'Success 🎉'
+    error = "something is wrong"
 
     if res.status_code == 201:
-        return HttpResponse('Success 🎉')
-    return HttpResponse('Something went wrong 😢')
+        # return HttpResponse('Success 🎉')
+        return render(request,'home.html',{'message':message})
+    return render(request,'home.html',{'error':error})
+
+
+def todohome(request):
+    kobo = Kobo.objects.all()
+    form = KoboForm()
+
+    if request.method == 'POST':
+        form = KoboForm(request.POST)
+        if form.is_valid():
+            form.save()
+            context = {
+            'kobo': kobo,
+            'form': form,}
+            # Redirect after a successful POST to prevent form resubmission
+            return render(request, 'todohome.html', context)  # Use the correct URL name
+
 
