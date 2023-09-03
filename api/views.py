@@ -116,19 +116,27 @@ def create_xml_submission(data, _uuid):
     return xml_data.encode()
 
 def home(request):
-    _uuid = str(uuid.uuid4())
-    data = 'after test' # Change this to the data you want to submit
-    file_tuple = (_uuid, io.BytesIO(create_xml_submission(data, _uuid)))
-    files = {'xml_submission_file': file_tuple}
-    headers = {'Authorization': f'Token {TOKEN}'}
-    res = requests.post(SUMISSION_URL, files=files, headers=headers)
-    message = 'Success 🎉'
-    error = "something is wrong"
+    if request.method == 'POST':
+        form = MyForm(request.POST)
+        if form.is_valid():
+            name = form.cleaned_data['name']
+            _uuid = str(uuid.uuid4())
+            data = name  # Change this to the data you want to submit
+            file_tuple = (_uuid, io.BytesIO(create_xml_submission(data, _uuid)))
+            files = {'xml_submission_file': file_tuple}
+            headers = {'Authorization': f'Token {TOKEN}'}
+            res = requests.post(SUMISSION_URL, files=files, headers=headers)
 
-    if res.status_code == 201:
-        # return HttpResponse('Success 🎉')
-        return render(request,'home.html',{'message':message})
-    return render(request,'home.html',{'error':error})
+            if res.status_code == 201:
+                message = 'Success 🎉'
+            else:
+                error = 'Something went wrong 😢'
+                return render(request, 'home.html', {'error': error})
+
+    else:
+        form = MyForm()
+
+    return render(request, 'home.html', {'form': form})
 
 
 def todohome(request):
