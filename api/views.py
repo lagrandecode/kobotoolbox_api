@@ -117,9 +117,11 @@ def create_xml_submission(data, _uuid):
 
 def home(request):
     if request.method == 'POST':
-        form = MyForm(request.POST)
+
+        form = KoboForm(request.POST)
         if form.is_valid():
             name = form.cleaned_data['name']
+            form.save()
             _uuid = str(uuid.uuid4())
             data = name  # Change this to the data you want to submit
             file_tuple = (_uuid, io.BytesIO(create_xml_submission(data, _uuid)))
@@ -134,23 +136,34 @@ def home(request):
                 return render(request, 'home.html', {'error': error})
 
     else:
-        form = MyForm()
+        form = KoboForm()
 
     return render(request, 'home.html', {'form': form})
 
 
-def todohome(request):
-    kobo = Kobo.objects.all()
-    form = KoboForm()
 
+def todohome(request):
     if request.method == 'POST':
         form = KoboForm(request.POST)
         if form.is_valid():
             form.save()
+            # Update the kobo queryset after saving the form
+            kobo = Kobo.objects.all()
             context = {
-            'kobo': kobo,
-            'form': form,}
+                'kobo': kobo,
+                'form': form,
+            }
             # Redirect after a successful POST to prevent form resubmission
             return render(request, 'todohome.html', context)  # Use the correct URL name
+    else:
+        # If the request method is not POST, display an empty form and the existing data
+        kobo = Kobo.objects.all()
+        form = KoboForm()
+        context = {
+            'kobo': kobo,
+            'form': form,
+        }
+        return render(request, 'todohome.html', context)
+
 
 
