@@ -18,8 +18,7 @@
    
    <h1>{{api.deployment__submission_count}}</h1>
    <h1>{{api.results.1.Name}}</h1>
-   <h1>{{api.data_url_xlsx}}</h1>
-   <a href="{{api.data_url_xlsx}}">Download</a>
+
 
    {% for x in api %}
 
@@ -34,6 +33,10 @@
     {{form}}
     <button type="submit"> submit </button>
     </form>
+
+    {% for k in kobo %}
+    <h1>{{k.Name}}</h1>
+    {% endfor %}
 
 
 

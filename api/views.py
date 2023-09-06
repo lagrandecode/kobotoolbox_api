@@ -122,6 +122,7 @@ def home(request):
         if form.is_valid():
             name = form.cleaned_data['name']
             form.save()
+            kobo = Kobo.objects.all()
             _uuid = str(uuid.uuid4())
             data = name  # Change this to the data you want to submit
             file_tuple = (_uuid, io.BytesIO(create_xml_submission(data, _uuid)))
@@ -133,7 +134,7 @@ def home(request):
                 message = 'Success 🎉'
             else:
                 error = 'Something went wrong 😢'
-                return render(request, 'home.html', {'error': error})
+                return render(request, 'home.html', {'error': error,'kobo':kobo})
 
     else:
         form = KoboForm()
