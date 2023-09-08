@@ -40,47 +40,6 @@ def home(request):
 #     #if you fill the form on web or mobile the data will display in real-time
 
 
-
-#For my Youtube Tutorial Oluwaseun Ogunmolu
-# Using kobotoolbox for feedback on my website
-
-# def format_openrosa_datetime():
-#     return datetime.now().isoformat('T', 'milliseconds')
-
-# def home(request):
-#     import json 
-#     import requests
-#     header = {
-#         "Authorization": "Token 6fb29d8015dc136cba3558590282ddab7f2b24a5"
-#     }
-#     #Imagine I want to submit gender and age questions
-#     submission = {
-#         "formhub/uuid": "43e93d84ef2341a89b562d41db6bd829",
-#         "start": format_openrosa_datetime(),
-#         "end": format_openrosa_datetime(),
-#         "name": "kazeem",
-#         "__version__": "vKMXGsXb7sEw42x2hnDqcf",
-#         "_xform_id_string": "aK9ANfTMCGAQHNiunmQyki"
-#     }
-
-#     #Here I'm printing the output
-#     for i in submission:
-#         print(i)
-#     response = requests.post('https://kc.kobotoolbox.org/api/v1/submissions',
-#     headers=header,data=submission, 
-#     auth=("ogunmolu_oluwaseun","08078011943"))
-#     if response == 201:
-#         return 'SUCCESS'
-#     return 'error'
-
-#     print(response.text)
-#     print(response.content)
-#     print(submission)
-#     return render(request,'home.html',submission)
-# #     #error message
-# #     #{"detail":"Method \"POST\" not allowed."}
-# #     #Please I need help 🙏
-
     
 
 # kobotoolbox/views.py
