@@ -7,3 +7,5 @@ from .models import *
 
 
 admin.site.register(Kobo)
+admin.site.register(Orders)
+admin.site.register(Product)
