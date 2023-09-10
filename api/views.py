@@ -65,7 +65,9 @@ def create_xml_submission(data, _uuid):
         </formhub>
         <start>{format_openrosa_datetime()}</start>
         <end>{format_openrosa_datetime()}</end>
-        <name>{data}</name>
+        <name>{data['name']}</name>
+        <price>{data['price']}</price>
+        <description>{data['description']}</description>
         <__version__>vKMXGsXb7sEw42x2hnDqcf</__version__>
         <meta>
             <instanceID>uuid:{_uuid}</instanceID>
@@ -77,13 +79,19 @@ def create_xml_submission(data, _uuid):
 def home(request):
     if request.method == 'POST':
 
-        form = KoboForm(request.POST)
+        form = ProductForm(request.POST)
         if form.is_valid():
             name = form.cleaned_data['name']
+            price = form.cleaned_data['price']
+            description = form.cleaned_data['description']
             form.save()
-            kobo = Kobo.objects.all()
+            product = Product.objects.all()
             _uuid = str(uuid.uuid4())
-            data = name  # Change this to the data you want to submit
+            data = {
+                'name':name,
+                'price':price,
+                'description':description
+            }  # Change this to the data you want to submit
             file_tuple = (_uuid, io.BytesIO(create_xml_submission(data, _uuid)))
             files = {'xml_submission_file': file_tuple}
             headers = {'Authorization': f'Token {TOKEN}'}
@@ -93,37 +101,67 @@ def home(request):
                 message = 'Success 🎉'
             else:
                 error = 'Something went wrong 😢'
-                return render(request, 'home.html', {'error': error,'kobo':kobo})
+                return render(request, 'home.html', {'error': error,'product':product})
 
     else:
-        form = KoboForm()
+        form = ProductForm()
 
     return render(request, 'home.html', {'form': form})
 
 
 
-def todohome(request):
-    if request.method == 'POST':
-        form = KoboForm(request.POST)
-        if form.is_valid():
-            form.save()
-            # Update the kobo queryset after saving the form
-            kobo = Kobo.objects.all()
-            context = {
-                'kobo': kobo,
-                'form': form,
-            }
-            # Redirect after a successful POST to prevent form resubmission
-            return render(request, 'todohome.html', context)  # Use the correct URL name
-    else:
-        # If the request method is not POST, display an empty form and the existing data
-        kobo = Kobo.objects.all()
-        form = KoboForm()
-        context = {
-            'kobo': kobo,
-            'form': form,
-        }
-        return render(request, 'todohome.html', context)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# def todohome(request):
+#     if request.method == 'POST':
+#         form = KoboForm(request.POST)
+#         if form.is_valid():
+#             form.save()
+#             # Update the kobo queryset after saving the form
+#             kobo = Kobo.objects.all()
+#             context = {
+#                 'kobo': kobo,
+#                 'form': form,
+#             }
+#             # Redirect after a successful POST to prevent form resubmission
+#             return render(request, 'todohome.html', context)  # Use the correct URL name
+#     else:
+#         # If the request method is not POST, display an empty form and the existing data
+#         kobo = Kobo.objects.all()
+#         form = KoboForm()
+#         context = {
+#             'kobo': kobo,
+#             'form': form,
+#         }
+#         return render(request, 'todohome.html', context)
 
 
 

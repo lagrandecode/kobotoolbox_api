@@ -11,41 +11,27 @@
    <h3>HOW TO FETCH KOBOTOOLBOX API USING DJANGO</h3>
 
 
-   <h1>{{api.content}}</h1>
-   <h1>{{message}}</h1>
-
-   <h1>{{api.name}}</h1>
-   
-   <h1>{{api.deployment__submission_count}}</h1>
-   <h1>{{api.results.1.Name}}</h1>
-
-
-   {% for x in api %}
-
-   <h1>{{x.name}}</h1>
-   <h1>{{x.age}}</h1>
-
-
-   {% endfor %}
-
    <form method="POST">
     {% csrf_token %}
-    {{form}}
-    <button type="submit"> submit </button>
+    <div>
+        {{form}}
+    </div>
+    <div>
+        <button type="submit"> submit </button>
+    </div>
+    
+
     </form>
 
-    {% for k in kobo %}
-    <h1>{{k.Name}}</h1>
+    {% for p in product  %}
+    <div>
+    <h1>{{p.name}}</h1>
+    <h1>{{p.price}}</h1>
+    <h1>{{p.description}}</h1>
+    </div>
     {% endfor %}
-
-
-
-
-   
-
-
-
 
     
 </body>
 </html>
+
