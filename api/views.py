@@ -112,6 +112,70 @@ def home(request):
 
 
 
+#for orders 
+
+def create_xml_submission(data, _uuid):
+    xml_data = f'''
+    <aMEJDuiSFFNiyWdrPV4wfF id="aMEJDuiSFFNiyWdrPV4wfF" version="1 ({datetime.now():%Y-%m-%d %H:%M:%S})">
+        <formhub>
+            <uuid>278a030cd7cc4fb3aa462b661a8def35</uuid>
+        </formhub>
+        <start>{format_openrosa_datetime()}</start>
+        <end>{format_openrosa_datetime()}</end>
+        <product>{data['product']}</product>
+        <email>{data['email']}</email>
+        <address>{data['address']}</address>
+        <mobile>{data['mobile']}</mobile>
+        <status>{data['status']}</status>
+        <__version__>vCSqHBfBv9YW8X2EJqdKH3</__version__>
+        <meta>
+            <instanceID>uuid:{_uuid}</instanceID>
+        </meta>
+    </aMEJDuiSFFNiyWdrPV4wfF>
+    '''
+    return xml_data.encode()
+
+def orderview(request):
+    if request.method == 'POST':
+
+        form = OrderForm(request.POST)
+        if form.is_valid():
+            product = form.cleaned_data['product']
+            email = form.cleaned_data['email']
+            address = form.cleaned_data['address']
+            mobile = form.cleaned_data['mobile']
+            status = form.cleaned_data['status']
+            form.save()
+            orders = Orders.objects.all()
+            _uuid = str(uuid.uuid4())
+            data = {
+                'product':product,
+                'email':email,
+                'address':address,
+                'mobile':mobile,
+                'status':status
+            }  # Change this to the data you want to submit
+            file_tuple = (_uuid, io.BytesIO(create_xml_submission(data, _uuid)))
+            files = {'xml_submission_file': file_tuple}
+            headers = {'Authorization': f'Token {TOKEN}'}
+            res = requests.post(SUMISSION_URL, files=files, headers=headers)
+
+            if res.status_code == 201:
+                message = 'Success 🎉'
+            else:
+                error = 'Something went wrong 😢'
+                return render(request, 'order.html', {'error': error,'orders':orders})
+
+    else:
+        form = OrderForm()
+
+    return render(request, 'order.html', {'form': form})
+
+
+
+
+
+
 
 
 
