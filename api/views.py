@@ -162,6 +162,7 @@ def orderview(request):
 
             if res.status_code == 201:
                 message = 'Success 🎉'
+                
             else:
                 error = 'Something went wrong 😢'
                 return render(request, 'order.html', {'error': error,'orders':orders})
