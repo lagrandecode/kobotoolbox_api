@@ -7,6 +7,7 @@ import uuid
 from datetime import datetime
 from .models import *
 from .forms import *
+from django.contrib import messages
 # Create your views here.
 
 
@@ -98,7 +99,7 @@ def home(request):
             res = requests.post(SUMISSION_URL, files=files, headers=headers)
 
             if res.status_code == 201:
-                message = 'Success 🎉'
+                message.info(request,'success') 
             else:
                 error = 'Something went wrong 😢'
                 return render(request, 'home.html', {'error': error,'product':product})
