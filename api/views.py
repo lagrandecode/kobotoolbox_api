@@ -162,7 +162,7 @@ def orderview(request):
             res = requests.post(SUMISSION_URL, files=files, headers=headers)
 
             if res.status_code == 201:
-                message = 'Success 🎉'
+                messages.info(request,message='Success 🎉')
                 
             else:
                 error = 'Something went wrong 😢'
