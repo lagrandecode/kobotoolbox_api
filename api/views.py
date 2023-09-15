@@ -27,7 +27,7 @@ def home(request):
     # So, I can changed the url to access the actual information like name, gender, or what was designed.
 
     response = requests.get('https://kc.kobotoolbox.org/api/v1/data/1589205?format=json',
-    headers=header,auth=("ogunmolu_oluwaseun","08078011943"))
+    headers=header,auth=("ogunmolu_oluwaseun","**********"))
     print(response.content)
     # print(response.text)
 
@@ -160,17 +160,13 @@ def orderview(request):
             files = {'xml_submission_file': file_tuple}
             headers = {'Authorization': f'Token {TOKEN}'}
             res = requests.post(SUMISSION_URL, files=files, headers=headers)
-
             if res.status_code == 201:
                 messages.info(request,message='Success 🎉')
-                
             else:
                 error = 'Something went wrong 😢'
                 return render(request, 'order.html', {'error': error,'orders':orders})
-
     else:
         form = OrderForm()
-
     return render(request, 'order.html', {'form': form})
 
 
