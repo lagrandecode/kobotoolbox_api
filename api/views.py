@@ -113,7 +113,7 @@ def home(request):
 
 
 
-#for orders 
+
 
 def create_xml_submission(data, _uuid):
     xml_data = f'''
